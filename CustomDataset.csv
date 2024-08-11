@@ -1,0 +1,11 @@
+Location,Total_sqft,Bedrooms,Bathrooms,Price (in $1000s)
+Urban,1200,3,2,250
+Suburban,1500,4,3,300
+Rural,1800,3,2,200
+Urban,900,2,1,150
+Suburban,2000,5,4,350
+Rural,1600,4,3,220
+Urban,1300,3,2,270
+Suburban,1100,2,2,210
+Rural,1400,3,2,190
+Urban,1700,4,3,320
