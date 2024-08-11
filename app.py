@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import numpy as np
 import os
+from sklearn.linear_model import LinearRegression
 app = Flask(__name__)
 model_path = r'house_price_model.pkl'
 with open(model_path, 'rb') as f:
