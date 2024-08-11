@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import numpy as np
+import os
 app = Flask(__name__)
 model_path = r'house_price_model.pkl'
 with open(model_path, 'rb') as f:
@@ -26,4 +27,4 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)})
 if __name__ == '__main__':
-    app.run(debug=True)
+    uvicorn.run(app, host="0.0.0.0", port=port)
