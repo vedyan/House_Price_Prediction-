@@ -1,1 +1,67 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+</head>
+<body>
+    <h2>House Price Prediction</h2>
+    <form id="predict-form">
+        <label for="total_sqft">Total Sqft:</label>
+        <input type="number" id="total_sqft" name="total_sqft"><br><br>
+        
+        <label for="bedrooms">Bedrooms:</label>
+        <input type="number" id="bedrooms" name="bedrooms"><br><br>
+        
+        <label for="bathrooms">Bathrooms:</label>
+        <input type="number" id="bathrooms" name="bathrooms"><br><br>
+
+        <label for="location">Location:</label>
+        <select id="location" name="location">
+            <option value="urban">Urban</option>
+            <option value="suburban">Suburban</option>
+            <option value="rural">Rural</option>
+        </select><br><br>
+
+        <button type="button" onclick="predictPrice()">Predict</button>
+    </form>
+
+    <h3 id="result"></h3>
+
+    <script>
+        function predictPrice() {
+            const totalSqft = document.getElementById('total_sqft').value;
+            const bedrooms = document.getElementById('bedrooms').value;
+            const bathrooms = document.getElementById('bathrooms').value;
+            const location = document.getElementById('location').value;
+
+            const data = {
+                'Total_sqft': [parseFloat(totalSqft)],
+                'Bedrooms': [parseInt(bedrooms)],
+                'Bathrooms': [parseInt(bathrooms)],
+                'Location_Rural': [location === 'rural' ? 1 : 0],
+                'Location_Suburban': [location === 'suburban' ? 1 : 0],
+                'Location_Urban': [location === 'urban' ? 1 : 0]
+            };
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('result').innerText = 'Predicted Price: ' + result.predicted_price;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'Error predicting price';
+            });
+        }
+    </script>
+</body>
+</html>
